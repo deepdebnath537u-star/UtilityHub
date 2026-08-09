@@ -698,6 +698,11 @@ h1 {
     <h2>Image to PDF</h2>
     <p>Convert images into PDF</p>
 </div>
+<div class="tool" onclick="openMergePDF()">
+    <div class="icon">📑</div>
+    <h2>Merge PDF</h2>
+    <p>Combine multiple PDFs into one</p>
+</div>
     <div class="tool" onclick="openCalculator()">
         <div class="icon">🧮</div>
         <h2>Calculator</h2>
@@ -716,11 +721,7 @@ h1 {
     <p>Calculate GST amounts</p>
 </div>
 
-    <div class="tool">
-        <div class="icon">🎂</div>
-        <h2>Age Calculator</h2>
-        <p>Calculate your exact age</p>
-    </div>
+    
 
     <div class="tool">
         <div class="icon">🔄</div>
@@ -728,11 +729,7 @@ h1 {
         <p>Convert different units</p>
     </div>
 
-    <div class="tool">
-        <div class="icon">🔐</div>
-        <h2>Password Generator</h2>
-        <p>Generate strong passwords</p>
-    </div>
+    
 
     <div class="tool">
         <div class="icon">📝</div>
@@ -747,7 +744,59 @@ h1 {
     </div>
 
 </section>
+<!-- Image to PDF Tool -->
+<div class="pdf-tool" id="imagePdfTool">
 
+    <div class="pdf-box">
+
+        <button class="close-pdf" onclick="closeImagePDF()">×</button>
+
+        <h2>📄 Image to PDF</h2>
+
+        <p>Select one or more images to create a PDF.</p>
+
+        <input
+            type="file"
+            id="pdfImages"
+            accept="image/*"
+            multiple
+        >
+
+        <div class="image-preview" id="imagePreview"></div>
+
+        <button class="generate-pdf" onclick="generatePDF()">
+            Generate PDF
+        </button>
+
+    </div>
+
+</div>
+
+<div class="pdf-tool" id="mergePdfTool">
+
+    <div class="pdf-box">
+
+        <button class="close-pdf" onclick="closeMergePDF()">×</button>
+
+        <h2>📑 Merge PDF</h2>
+        <p>Select multiple PDF files and combine them into one PDF.</p>
+
+        <input
+            type="file"
+            id="mergePdfFiles"
+            accept="application/pdf"
+            multiple
+        >
+
+        <div id="mergePdfList" style="margin:20px 0; text-align:left;"></div>
+
+        <button class="generate-pdf" onclick="mergePDFs()">
+            Merge PDFs
+        </button>
+
+    </div>
+
+</div>
 <div class="calculator" id="calculator">
 
     <h2>🧮 Calculator</h2>
@@ -864,6 +913,113 @@ h1 {
 </footer>
 
 <script>
+    function openMergePDF() {
+    document.getElementById("mergePdfTool").style.display = "flex";
+}
+
+function closeMergePDF() {
+    document.getElementById("mergePdfTool").style.display = "none";
+}
+
+document.getElementById("mergePdfFiles").addEventListener("change", function () {
+
+    const list = document.getElementById("mergePdfList");
+    list.innerHTML = "";
+
+    Array.from(this.files).forEach((file, index) => {
+
+        const item = document.createElement("div");
+
+        item.style.padding = "8px";
+        item.style.marginBottom = "6px";
+        item.style.background = "rgba(255,255,255,0.06)";
+        item.style.borderRadius = "8px";
+
+       item.textContent = '${index + 1}. ${file.name}';
+        list.appendChild(item);
+    });
+});
+
+
+async function mergePDFs() {
+
+    const files = document.getElementById("mergePdfFiles").files;
+
+    if (files.length < 2) {
+        alert("Please select at least 2 PDF files.");
+        return;
+    }
+
+    try {
+
+        // Load PDF-LIB
+        if (!window.PDFLib) {
+
+            await new Promise((resolve, reject) => {
+
+                const script = document.createElement("script");
+
+                script.src =
+                    "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js";
+
+                script.onload = resolve;
+                script.onerror = reject;
+
+                document.head.appendChild(script);
+            });
+        }
+
+        const { PDFDocument } = PDFLib;
+
+        const mergedPdf = await PDFDocument.create();
+
+        for (const file of files) {
+
+            const arrayBuffer = await file.arrayBuffer();
+
+            const pdf = await PDFDocument.load(arrayBuffer);
+
+            const pages = await mergedPdf.copyPages(
+                pdf,
+                pdf.getPageIndices()
+            );
+
+            pages.forEach(page => {
+                mergedPdf.addPage(page);
+            });
+        }
+
+        const mergedBytes = await mergedPdf.save();
+
+        const blob = new Blob(
+            [mergedBytes],
+            { type: "application/pdf" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "UtilityHub-Merged.pdf";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+        alert("PDFs merged successfully!");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not merge the PDFs. Please make sure the files are valid PDF documents."
+        );
+    }
+}
 function openImagePDF() {
     document.getElementById("imagePdfTool").style.display = "flex";
 }
