@@ -171,7 +171,7 @@
     background: rgba(255,255,255,0.9);
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
-}   
+  
         .header-top {
     display: flex;
     align-items: center;
@@ -735,7 +735,7 @@ h1 {
 </div>
 <div class="tool" onclick="openMergePDF()">
     <div class="icon">📑</div>
-    <h2>Merge PDF</h2>
+    <h2>Merge PDF</h2>s
     <p>Combine multiple PDFs into one</p>
 </div>
 <div class="tool" onclick="openCompressPDF()">
@@ -990,6 +990,13 @@ h1 {
 </footer>
 
 <script>
+    function openMergePDF() {
+    document.getElementById("mergePdfTool").style.display = "flex";
+}
+
+function closeMergePDF() {
+    document.getElementById("mergePdfTool").style.display = "none";
+}
     function openCompressPDF() {
     document.getElementById("compressPdfTool").style.display = "flex";
 }
