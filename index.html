@@ -703,6 +703,11 @@ h1 {
     <h2>Merge PDF</h2>
     <p>Combine multiple PDFs into one</p>
 </div>
+<div class="tool" onclick="openCompressPDF()">
+    <div class="icon">🗜️</div>
+    <h2>Compress PDF</h2>
+    <p>Reduce PDF file size</p>
+</div>
     <div class="tool" onclick="openCalculator()">
         <div class="icon">🧮</div>
         <h2>Calculator</h2>
@@ -744,6 +749,31 @@ h1 {
     </div>
 
 </section>
+<!-- Compress PDF Tool -->
+<div class="pdf-tool" id="compressPdfTool">
+
+    <div class="pdf-box">
+
+        <button class="close-pdf" onclick="closeCompressPDF()">×</button>
+
+        <h2>🗜️ Compress PDF</h2>
+        <p>Select a PDF to reduce its file size.</p>
+
+        <input
+            type="file"
+            id="compressPdfFile"
+            accept="application/pdf"
+        >
+
+        <div id="compressPdfInfo" style="margin:20px 0;"></div>
+
+        <button class="generate-pdf" onclick="compressPDF()">
+            🗜️ Compress PDF
+        </button>
+
+    </div>
+
+</div>
 <!-- Image to PDF Tool -->
 <div class="pdf-tool" id="imagePdfTool">
 
@@ -771,6 +801,7 @@ h1 {
     </div>
 
 </div>
+
 
 <div class="pdf-tool" id="mergePdfTool">
 
@@ -913,6 +944,47 @@ h1 {
 </footer>
 
 <script>
+    function openCompressPDF() {
+    document.getElementById("compressPdfTool").style.display = "flex";
+}
+
+function closeCompressPDF() {
+    document.getElementById("compressPdfTool").style.display = "none";
+}
+
+const compressPdfFile = document.getElementById("compressPdfFile");
+
+if (compressPdfFile) {
+    compressPdfFile.addEventListener("change", function () {
+
+        const file = this.files[0];
+        const info = document.getElementById("compressPdfInfo");
+
+        if (!file) {
+            info.innerHTML = "";
+            return;
+        }
+
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+
+        info.innerHTML =
+            `<p>Selected: <b>${file.name}</b></p>
+             <p>Original size: ${sizeMB} MB</p>`;
+    });
+}
+
+async function compressPDF() {
+
+    const fileInput = document.getElementById("compressPdfFile");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select a PDF file.");
+        return;
+    }
+
+    alert("PDF compression is being prepared...");
+}
     function openMergePDF() {
     document.getElementById("mergePdfTool").style.display = "flex";
 }
