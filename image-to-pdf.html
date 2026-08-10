@@ -5,17 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Image to PDF Converter - UtilityHub</title>
-
     <meta name="description" content="Convert multiple images to a PDF online for free with UtilityHub. Fast, simple and mobile-friendly image to PDF converter.">
-
     <meta name="robots" content="index, follow">
-
     <link rel="canonical" href="https://deepdebnath537u-star.github.io/UtilityHub/image-to-pdf.html">
-
-    <meta property="og:title" content="Image to PDF Converter - UtilityHub">
-    <meta property="og:description" content="Convert multiple images into one PDF online for free with UtilityHub.">
-    <meta property="og:url" content="https://deepdebnath537u-star.github.io/UtilityHub/image-to-pdf.html">
-    <meta property="og:type" content="website">
 
     <style>
         * {
@@ -27,141 +19,136 @@
 
         body {
             min-height: 100vh;
+            padding: 15px;
             background:
                 radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.12), transparent 30%),
                 radial-gradient(circle at 80% 30%, rgba(170, 0, 255, 0.14), transparent 30%),
                 linear-gradient(135deg, #050510, #0b0b1f 50%, #050510);
             color: white;
-            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 650px;
-            margin: 40px auto;
-            padding: 30px 20px;
+            max-width: 430px;
+            margin: 25px auto;
+            padding: 22px 18px;
             text-align: center;
 
-            background: rgba(20, 20, 45, 0.55);
-            border: 1px solid rgba(0, 255, 255, 0.25);
-            border-radius: 24px;
+            background: rgba(20, 20, 45, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 20px;
 
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
 
             box-shadow:
-                0 0 30px rgba(0, 255, 255, 0.08),
-                0 15px 40px rgba(0, 0, 0, 0.4);
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                inset 0 0 20px rgba(255, 255, 255, 0.025);
         }
 
         h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-shadow:
-                0 0 10px #00ffff,
-                0 0 25px rgba(0, 255, 255, 0.5);
+            font-size: 25px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
         .description {
-            color: #a5f3fc;
-            margin-bottom: 25px;
+            color: #94a3b8;
+            font-size: 14px;
             line-height: 1.5;
+            margin-bottom: 18px;
         }
 
         .file-input {
             width: 100%;
-            padding: 14px;
+            padding: 11px;
             border: 1px dashed #64748b;
-            border-radius: 12px;
+            border-radius: 10px;
             background: rgba(255, 255, 255, 0.05);
             color: white;
-            cursor: pointer;
+            font-size: 14px;
         }
 
         .preview {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 25px 0;
-        }
-
-        .preview-item {
-            position: relative;
+            gap: 8px;
+            margin: 16px 0;
         }
 
         .preview img {
             width: 100%;
-            height: 120px;
+            height: 80px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 9px;
             border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         .generate {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: none;
-            border-radius: 12px;
-            background: white;
-            color: #111827;
-            font-size: 16px;
+            border-radius: 10px;
+            background: #00a8ff;
+            color: white;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
         }
 
-        .generate:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
+        .generate:active {
+            transform: scale(0.98);
         }
 
         .back {
             display: inline-block;
-            margin-top: 20px;
-            padding: 11px 20px;
-            border: 1px solid rgba(0, 255, 255, 0.25);
-            border-radius: 12px;
+            margin-top: 14px;
+            padding: 9px 16px;
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 10px;
             color: white;
             text-decoration: none;
             background: rgba(20, 20, 45, 0.7);
-        }
-
-        .back:hover {
-            border-color: #00ffff;
+            font-size: 14px;
         }
 
         .info {
-            margin-top: 30px;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             text-align: left;
-            color: #cbd5e1;
-            line-height: 1.7;
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         .info h2 {
             color: white;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        .info p + p {
+            margin-top: 8px;
         }
 
         @media (max-width: 600px) {
             body {
-                padding: 10px;
+                padding: 8px;
             }
 
             .container {
-                margin: 20px auto;
-                padding: 25px 15px;
+                margin: 15px auto;
+                padding: 20px 15px;
             }
 
             h1 {
-                font-size: 27px;
-            }
-
-            .preview {
-                grid-template-columns: repeat(2, 1fr);
+                font-size: 23px;
             }
 
             .preview img {
-                height: 105px;
+                height: 75px;
             }
         }
     </style>
@@ -171,11 +158,10 @@
 
 <div class="container">
 
-    <h1>📄 Image to PDF Converter</h1>
+    <h1>📄 Image to PDF</h1>
 
     <p class="description">
-        Convert one or multiple images into a single PDF online for free.
-        Simple, fast and mobile-friendly.
+        Convert images into one PDF quickly and easily.
     </p>
 
     <input
@@ -192,10 +178,7 @@
         📑 Generate PDF
     </button>
 
-    <a
-        class="back"
-        href="index.html"
-    >
+    <a class="back" href="index.html">
         ← Back to UtilityHub
     </a>
 
@@ -203,13 +186,8 @@
         <h2>Image to PDF Converter</h2>
 
         <p>
-            UtilityHub's Image to PDF converter lets you combine multiple
-            images into one PDF document directly in your browser.
-        </p>
-
-        <p>
-            Select JPG, PNG or other supported image files, preview them,
-            and generate your PDF with one click.
+            Select one or multiple images and convert them into a single PDF
+            directly in your browser.
         </p>
     </div>
 
@@ -218,7 +196,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-
 const imageInput = document.getElementById("pdfImages");
 const preview = document.getElementById("imagePreview");
 
@@ -232,16 +209,12 @@ imageInput.addEventListener("change", function () {
 
         reader.onload = function(event) {
 
-            const item = document.createElement("div");
-            item.className = "preview-item";
-
             const img = document.createElement("img");
 
             img.src = event.target.result;
             img.alt = "Selected image preview";
 
-            item.appendChild(img);
-            preview.appendChild(item);
+            preview.appendChild(img);
         };
 
         reader.readAsDataURL(file);
@@ -261,7 +234,6 @@ async function generatePDF() {
     try {
 
         const { jsPDF } = window.jspdf;
-
         const pdf = new jsPDF("p", "mm", "a4");
 
         for (let i = 0; i < files.length; i++) {
@@ -307,9 +279,7 @@ async function generatePDF() {
 
         console.error(error);
 
-        alert(
-            "Could not create the PDF. Please try again with valid image files."
-        );
+        alert("Could not create the PDF. Please try again.");
     }
 }
 
@@ -329,16 +299,13 @@ function loadImage(file) {
             };
 
             img.onerror = reject;
-
             img.src = event.target.result;
         };
 
         reader.onerror = reject;
-
         reader.readAsDataURL(file);
     });
 }
-
 </script>
 
 </body>
