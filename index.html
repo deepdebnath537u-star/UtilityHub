@@ -1417,47 +1417,72 @@ if (searchInput) {
 }
 </script>
 <script>
-    
-    const display = document.getElementById("display");
+/* =========================
+   CALCULATOR
+========================= */
 
-    function addValue(value) {
+const display = document.getElementById("display");
+
+function addValue(value) {
+    if (display) {
         display.value += value;
     }
+}
 
-    function clearDisplay() {
+function clearDisplay() {
+    if (display) {
         display.value = "";
     }
+}
 
-    function deleteLast() {
+function deleteLast() {
+    if (display) {
         display.value = display.value.slice(0, -1);
     }
+}
 
-    function calculate() {
-        try {
-            display.value = Function(
-                '"use strict"; return (' + display.value + ')'
-            )();
-        } catch {
-            display.value = "Error";
-        }
-    }
+function calculate() {
+    if (!display || !display.value) return;
 
-    function openCalculator() {
-        document.getElementById("tools").style.display = "none";
-        document.querySelector(".search").style.display = "none";
-        document.getElementById("calculator").style.display = "block";
+    try {
+        display.value = Function(
+            '"use strict"; return (' + display.value + ')'
+        )();
+    } catch (error) {
+        display.value = "Error";
     }
+}
 
-    function closeCalculator() {
-        document.getElementById("calculator").style.display = "none";
-        document.getElementById("tools").style.display = "grid";
-        document.querySelector(".search").style.display = "block";
-        clearDisplay();
-    }
-    function openPercentage() {
+function openCalculator() {
     document.getElementById("tools").style.display = "none";
     document.querySelector(".search").style.display = "none";
+
+    document.getElementById("percentage").style.display = "none";
+    document.getElementById("gst").style.display = "none";
+
+    document.getElementById("calculator").style.display = "block";
+}
+
+function closeCalculator() {
     document.getElementById("calculator").style.display = "none";
+    document.getElementById("tools").style.display = "grid";
+    document.querySelector(".search").style.display = "block";
+
+    clearDisplay();
+}
+
+
+/* =========================
+   PERCENTAGE CALCULATOR
+========================= */
+
+function openPercentage() {
+    document.getElementById("tools").style.display = "none";
+    document.querySelector(".search").style.display = "none";
+
+    document.getElementById("calculator").style.display = "none";
+    document.getElementById("gst").style.display = "none";
+
     document.getElementById("percentage").style.display = "block";
 }
 
@@ -1472,25 +1497,38 @@ function closePercentage() {
 }
 
 function calculatePercentage() {
-    const obtained = Number(document.getElementById("obtained").value);
-    const total = Number(document.getElementById("total").value);
+    const obtained = Number(
+        document.getElementById("obtained").value
+    );
 
-    if (total <= 0) {
-        document.getElementById("percentageResult").innerText =
-            "Please enter a valid total.";
+    const total = Number(
+        document.getElementById("total").value
+    );
+
+    const result = document.getElementById("percentageResult");
+
+    if (!obtained && obtained !== 0 || total <= 0) {
+        result.innerText = "Please enter valid marks.";
         return;
     }
 
     const percentage = (obtained / total) * 100;
 
-    document.getElementById("percentageResult").innerText =
-        percentage.toFixed(2) + "%";
+    result.innerText = percentage.toFixed(2) + "%";
 }
+
+
+/* =========================
+   GST CALCULATOR
+========================= */
+
 function openGST() {
     document.getElementById("tools").style.display = "none";
     document.querySelector(".search").style.display = "none";
+
     document.getElementById("calculator").style.display = "none";
     document.getElementById("percentage").style.display = "none";
+
     document.getElementById("gst").style.display = "block";
 }
 
@@ -1504,55 +1542,36 @@ function closeGST() {
 }
 
 function calculateGST() {
-    const amount = Number(document.getElementById("gstAmount").value);
-    const rate = Number(document.getElementById("gstRate").value);
+    const amount = Number(
+        document.getElementById("gstAmount").value
+    );
+
+    const rate = Number(
+        document.getElementById("gstRate").value
+    );
+
+    const result = document.getElementById("gstResult");
 
     if (amount <= 0) {
-        document.getElementById("gstResult").innerText =
-            "Please enter a valid amount.";
+        result.innerText = "Please enter a valid amount.";
         return;
     }
 
     const gst = amount * rate / 100;
     const total = amount + gst;
 
-    document.getElementById("gstResult").innerHTML =
+    result.innerHTML =
         "GST Amount: ₹" + gst.toFixed(2) +
         "<br>Total Amount: ₹" + total.toFixed(2);
 }
-function openGST() {
-    document.getElementById("tools").style.display = "none";
-    document.querySelector(".search").style.display = "none";
-    document.getElementById("calculator").style.display = "none";
-    document.getElementById("percentage").style.display = "none";
-    document.getElementById("gst").style.display = "block";
-}
 
-function closeGST() {
-    document.getElementById("gst").style.display = "none";
-    document.getElementById("tools").style.display = "grid";
-    document.querySelector(".search").style.display = "block";
 
-    document.getElementById("gstAmount").value = "";
-    document.getElementById("gstResult").innerText = "";
-}
+/* =========================
+   DARK MODE
+========================= */
 
-function calculateGST() {
-    const amount = Number(document.getElementById("gstAmount").value);
-    const rate = Number(document.getElementById("gstRate").value);
-
-    if (amount <= 0) {
-        document.getElementById("gstResult").innerText =
-            "Please enter a valid amount.";
-        return;
-    }
-
-    const gst = amount * rate / 100;
-    const total = amount + gst;
-
-    document.getElementById("gstResult").innerHTML =
-        "GST Amount: ₹" + gst.toFixed(2) +
-        "<br>Total Amount: ₹" + total.toFixed(2);
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
 }
 </script>
 <script>
@@ -1561,26 +1580,5 @@ function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
 </script>
-<div id="imagePdfTool" class="pdf-tool">
-    <div class="pdf-box">
-        <button class="close-pdf" onclick="closeImagePDF()">×</button>
-
-        <h2>📄 Image to PDF</h2>
-        <p>Select one or more images</p>
-
-        <input
-            type="file"
-            id="pdfImages"
-            accept="image/*"
-            multiple
-        >
-
-        <div id="imagePreview" class="image-preview"></div>
-
-        <button class="generate-pdf" onclick="generatePDF()">
-            📥 Generate PDF
-        </button>
-    </div>
-</div>
 </body>
 </html>
