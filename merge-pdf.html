@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Merge PDF Online - UtilityHub</title>
+
+    <meta name="description" content="Merge multiple PDF files into one PDF online for free with UtilityHub. Simple, fast and mobile-friendly PDF merger.">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://deepdebnath537u-star.github.io/UtilityHub/merge-pdf.html">
+
+    <meta property="og:title" content="Merge PDF Online - UtilityHub">
+    <meta property="og:description" content="Combine multiple PDF files into one PDF online for free with UtilityHub.">
+    <meta property="og:url" content="https://deepdebnath537u-star.github.io/UtilityHub/merge-pdf.html">
+    <meta property="og:type" content="website">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 15px;
+
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(170, 0, 255, 0.14), transparent 30%),
+                linear-gradient(135deg, #050510, #0b0b1f 50%, #050510);
+
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            margin: 25px auto;
+            padding: 22px 18px;
+            text-align: center;
+
+            background: rgba(20, 20, 45, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 20px;
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                inset 0 0 20px rgba(255, 255, 255, 0.025);
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .description {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 11px;
+
+            border: 1px dashed #64748b;
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+
+            font-size: 14px;
+        }
+
+        .file-list {
+            margin: 16px 0;
+            text-align: left;
+        }
+
+        .file-item {
+            padding: 10px 12px;
+            margin-bottom: 7px;
+
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.12);
+
+            border-radius: 9px;
+
+            color: #cbd5e1;
+            font-size: 13px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .merge {
+            width: 100%;
+            padding: 12px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #00a8ff;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .merge:active {
+            transform: scale(0.98);
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 9px 16px;
+
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 10px;
+
+            color: white;
+            text-decoration: none;
+
+            background: rgba(20, 20, 45, 0.7);
+
+            font-size: 14px;
+        }
+
+        .back:hover {
+            border-color: #00ffff;
+        }
+
+        .info {
+            margin-top: 22px;
+            padding-top: 18px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            text-align: left;
+
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .info h2 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 8px;
+            }
+
+            .container {
+                margin: 15px auto;
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📑 Merge PDF</h1>
+
+    <p class="description">
+        Combine multiple PDF files into one PDF quickly and easily.
+    </p>
+
+    <input
+        class="file-input"
+        type="file"
+        id="mergePdfFiles"
+        accept="application/pdf"
+        multiple
+    >
+
+    <div class="file-list" id="fileList"></div>
+
+    <button class="merge" onclick="mergePDFs()">
+        📑 Merge PDFs
+    </button>
+
+    <a class="back" href="index.html">
+        ← Back to UtilityHub
+    </a>
+
+    <div class="info">
+
+        <h2>Merge PDF Online</h2>
+
+        <p>
+            Select two or more PDF files and combine them into a single PDF
+            directly in your browser.
+        </p>
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+<script>
+
+const fileInput = document.getElementById("mergePdfFiles");
+const fileList = document.getElementById("fileList");
+
+fileInput.addEventListener("change", function () {
+
+    fileList.innerHTML = "";
+
+    Array.from(this.files).forEach((file, index) => {
+
+        const item = document.createElement("div");
+
+        item.className = "file-item";
+
+        item.textContent =
+            (index + 1) + ". " + file.name;
+
+        fileList.appendChild(item);
+    });
+});
+
+
+async function mergePDFs() {
+
+    const files = fileInput.files;
+
+    if (files.length < 2) {
+
+        alert("Please select at least 2 PDF files.");
+
+        return;
+    }
+
+    try {
+
+        const { PDFDocument } = PDFLib;
+
+        const mergedPdf =
+            await PDFDocument.create();
+
+        for (const file of files) {
+
+            const arrayBuffer =
+                await file.arrayBuffer();
+
+            const pdf =
+                await PDFDocument.load(arrayBuffer);
+
+            const pages =
+                await mergedPdf.copyPages(
+                    pdf,
+                    pdf.getPageIndices()
+                );
+
+            pages.forEach(page => {
+
+                mergedPdf.addPage(page);
+
+            });
+        }
+
+        const mergedBytes =
+            await mergedPdf.save();
+
+        const blob =
+            new Blob(
+                [mergedBytes],
+                { type: "application/pdf" }
+            );
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+            "UtilityHub-Merged.pdf";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not merge the PDFs. Please make sure the files are valid PDF documents."
+        );
+    }
+}
+
+</script>
+
+</body>
+</html>
