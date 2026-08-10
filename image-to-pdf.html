@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Image to PDF Converter - UtilityHub</title>
+
+    <meta name="description" content="Convert multiple images to a PDF online for free with UtilityHub. Fast, simple and mobile-friendly image to PDF converter.">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://deepdebnath537u-star.github.io/UtilityHub/image-to-pdf.html">
+
+    <meta property="og:title" content="Image to PDF Converter - UtilityHub">
+    <meta property="og:description" content="Convert multiple images into one PDF online for free with UtilityHub.">
+    <meta property="og:url" content="https://deepdebnath537u-star.github.io/UtilityHub/image-to-pdf.html">
+    <meta property="og:type" content="website">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(170, 0, 255, 0.14), transparent 30%),
+                linear-gradient(135deg, #050510, #0b0b1f 50%, #050510);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 30px 20px;
+            text-align: center;
+
+            background: rgba(20, 20, 45, 0.55);
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            border-radius: 24px;
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.08),
+                0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow:
+                0 0 10px #00ffff,
+                0 0 25px rgba(0, 255, 255, 0.5);
+        }
+
+        .description {
+            color: #a5f3fc;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 14px;
+            border: 1px dashed #64748b;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+        }
+
+        .preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .preview-item {
+            position: relative;
+        }
+
+        .preview img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .generate {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: #111827;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .generate:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 11px 20px;
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            background: rgba(20, 20, 45, 0.7);
+        }
+
+        .back:hover {
+            border-color: #00ffff;
+        }
+
+        .info {
+            margin-top: 30px;
+            text-align: left;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .info h2 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .preview img {
+                height: 105px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📄 Image to PDF Converter</h1>
+
+    <p class="description">
+        Convert one or multiple images into a single PDF online for free.
+        Simple, fast and mobile-friendly.
+    </p>
+
+    <input
+        class="file-input"
+        type="file"
+        id="pdfImages"
+        accept="image/*"
+        multiple
+    >
+
+    <div class="preview" id="imagePreview"></div>
+
+    <button class="generate" onclick="generatePDF()">
+        📑 Generate PDF
+    </button>
+
+    <a
+        class="back"
+        href="index.html"
+    >
+        ← Back to UtilityHub
+    </a>
+
+    <div class="info">
+        <h2>Image to PDF Converter</h2>
+
+        <p>
+            UtilityHub's Image to PDF converter lets you combine multiple
+            images into one PDF document directly in your browser.
+        </p>
+
+        <p>
+            Select JPG, PNG or other supported image files, preview them,
+            and generate your PDF with one click.
+        </p>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+const imageInput = document.getElementById("pdfImages");
+const preview = document.getElementById("imagePreview");
+
+imageInput.addEventListener("change", function () {
+
+    preview.innerHTML = "";
+
+    Array.from(this.files).forEach(file => {
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+
+            const item = document.createElement("div");
+            item.className = "preview-item";
+
+            const img = document.createElement("img");
+
+            img.src = event.target.result;
+            img.alt = "Selected image preview";
+
+            item.appendChild(img);
+            preview.appendChild(item);
+        };
+
+        reader.readAsDataURL(file);
+    });
+});
+
+
+async function generatePDF() {
+
+    const files = imageInput.files;
+
+    if (!files.length) {
+        alert("Please select at least one image.");
+        return;
+    }
+
+    try {
+
+        const { jsPDF } = window.jspdf;
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        for (let i = 0; i < files.length; i++) {
+
+            const image = await loadImage(files[i]);
+
+            if (i > 0) {
+                pdf.addPage();
+            }
+
+            const pageWidth = 210;
+            const pageHeight = 297;
+
+            const ratio = Math.min(
+                pageWidth / image.width,
+                pageHeight / image.height
+            );
+
+            const width = image.width * ratio;
+            const height = image.height * ratio;
+
+            const x = (pageWidth - width) / 2;
+            const y = (pageHeight - height) / 2;
+
+            const format =
+                files[i].type === "image/png"
+                    ? "PNG"
+                    : "JPEG";
+
+            pdf.addImage(
+                image,
+                format,
+                x,
+                y,
+                width,
+                height
+            );
+        }
+
+        pdf.save("UtilityHub-Images.pdf");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not create the PDF. Please try again with valid image files."
+        );
+    }
+}
+
+
+function loadImage(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+
+            const img = new Image();
+
+            img.onload = function() {
+                resolve(img);
+            };
+
+            img.onerror = reject;
+
+            img.src = event.target.result;
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+    });
+}
+
+</script>
+
+</body>
+</html>
