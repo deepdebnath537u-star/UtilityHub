@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Compress PDF Online - UtilityHub</title>
+
+    <meta name="description" content="Compress PDF files online for free with UtilityHub. Reduce PDF file size quickly and easily.">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://deepdebnath537u-star.github.io/UtilityHub/compress-pdf.html">
+
+    <meta property="og:title" content="Compress PDF Online - UtilityHub">
+    <meta property="og:description" content="Reduce PDF file size quickly and easily with UtilityHub.">
+    <meta property="og:url" content="https://deepdebnath537u-star.github.io/UtilityHub/compress-pdf.html">
+    <meta property="og:type" content="website">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 15px;
+
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(170, 0, 255, 0.14), transparent 30%),
+                linear-gradient(135deg, #050510, #0b0b1f 50%, #050510);
+
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 360px;
+            margin: 25px auto;
+            padding: 22px 18px;
+
+            text-align: center;
+
+            background: rgba(20, 20, 45, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 20px;
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                inset 0 0 20px rgba(255, 255, 255, 0.025);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+
+            text-shadow:
+                0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .description {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 11px;
+
+            border: 1px dashed #64748b;
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+
+            font-size: 13px;
+        }
+
+        .info {
+            margin: 15px 0;
+
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .options {
+            margin: 16px 0;
+            text-align: left;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 7px;
+
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .options select {
+            width: 100%;
+            height: 45px;
+            padding: 0 10px;
+
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.25);
+
+            background: #111827;
+            color: white;
+
+            font-size: 14px;
+        }
+
+        .compress {
+            width: 100%;
+            padding: 12px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #00a8ff;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .compress:active {
+            transform: scale(0.98);
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-top: 14px;
+            padding: 9px 16px;
+
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            border-radius: 10px;
+
+            background: rgba(20, 20, 45, 0.7);
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .info-section {
+            margin-top: 22px;
+            padding-top: 18px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            text-align: left;
+
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .info-section h2 {
+            margin-bottom: 7px;
+
+            color: white;
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 8px;
+            }
+
+            .container {
+                margin: 15px auto;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🗜️ Compress PDF</h1>
+
+    <p class="description">
+        Reduce the size of your PDF file quickly and easily.
+    </p>
+
+    <input
+        type="file"
+        id="compressPdfFile"
+        accept="application/pdf"
+    >
+
+    <div class="info" id="pdfInfo"></div>
+
+    <div class="options">
+
+        <label for="compressionQuality">
+            Compression Level
+        </label>
+
+        <select id="compressionQuality">
+
+            <option value="0.8">
+                High Quality — Larger File
+            </option>
+
+            <option value="0.6" selected>
+                Medium — Recommended
+            </option>
+
+            <option value="0.4">
+                Strong Compression — Smaller File
+            </option>
+
+        </select>
+
+    </div>
+
+    <button class="compress" onclick="compressPDF()">
+        🗜️ Compress PDF
+    </button>
+
+    <a class="back" href="index.html">
+        ← Back to UtilityHub
+    </a>
+
+    <div class="info-section">
+
+        <h2>Compress PDF Online</h2>
+
+        <p>
+            Select a PDF file and choose a compression level.
+            The compressed PDF will be downloaded to your device.
+        </p>
+
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs" type="module"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+const fileInput =
+    document.getElementById("compressPdfFile");
+
+const pdfInfo =
+    document.getElementById("pdfInfo");
+
+
+fileInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) {
+
+        pdfInfo.innerHTML = "";
+
+        return;
+    }
+
+    const sizeMB =
+        (file.size / (1024 * 1024)).toFixed(2);
+
+    pdfInfo.innerHTML =
+        "<b>Selected:</b> " + file.name +
+        "<br>" +
+        "<b>Original size:</b> " + sizeMB + " MB";
+});
+
+
+async function compressPDF() {
+
+    const file =
+        fileInput.files[0];
+
+    if (!file) {
+
+        alert("Please select a PDF file.");
+
+        return;
+    }
+
+    try {
+
+        alert("Compressing PDF... Please wait.");
+
+        const quality =
+            Number(
+                document.getElementById(
+                    "compressionQuality"
+                ).value
+            );
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+        const pdf =
+            await pdfjsLib.getDocument({
+                data: arrayBuffer
+            }).promise;
+
+        const { jsPDF } =
+            window.jspdf;
+
+        let outputPdf = null;
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+
+            const page =
+                await pdf.getPage(pageNumber);
+
+            const viewport =
+                page.getViewport({
+                    scale: 1.3
+                });
+
+            const canvas =
+                document.createElement("canvas");
+
+            const context =
+                canvas.getContext("2d");
+
+            canvas.width =
+                viewport.width;
+
+            canvas.height =
+                viewport.height;
+
+            await page.render({
+                canvasContext: context,
+                viewport: viewport
+            }).promise;
+
+            const imageData =
+                canvas.toDataURL(
+                    "image/jpeg",
+                    quality
+                );
+
+            const pageWidth = 210;
+            const pageHeight = 297;
+
+            const ratio =
+                Math.min(
+                    pageWidth / canvas.width,
+                    pageHeight / canvas.height
+                );
+
+            const finalWidth =
+                canvas.width * ratio;
+
+            const finalHeight =
+                canvas.height * ratio;
+
+            const x =
+                (pageWidth - finalWidth) / 2;
+
+            const y =
+                (pageHeight - finalHeight) / 2;
+
+
+            if (pageNumber === 1) {
+
+                outputPdf =
+                    new jsPDF({
+                        orientation:
+                            finalHeight > finalWidth
+                                ? "portrait"
+                                : "landscape",
+
+                        unit: "mm",
+
+                        format: "a4",
+
+                        compress: true
+                    });
+
+            } else {
+
+                outputPdf.addPage(
+                    "a4",
+                    finalHeight > finalWidth
+                        ? "portrait"
+                        : "landscape"
+                );
+            }
+
+
+            outputPdf.addImage(
+                imageData,
+                "JPEG",
+                x,
+                y,
+                finalWidth,
+                finalHeight,
+                undefined,
+                "FAST"
+            );
+        }
+
+
+        const compressedBlob =
+            outputPdf.output("blob");
+
+        const originalSize =
+            (
+                file.size /
+                (1024 * 1024)
+            ).toFixed(2);
+
+        const compressedSize =
+            (
+                compressedBlob.size /
+                (1024 * 1024)
+            ).toFixed(2);
+
+
+        const downloadUrl =
+            URL.createObjectURL(
+                compressedBlob
+            );
+
+        const link =
+            document.createElement("a");
+
+        link.href =
+            downloadUrl;
+
+        link.download =
+            "UtilityHub-Compressed.pdf";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(
+            downloadUrl
+        );
+
+
+        alert(
+            "Compression complete!\n\n" +
+            "Original: " +
+            originalSize +
+            " MB\n" +
+            "Compressed: " +
+            compressedSize +
+            " MB"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not compress this PDF. Please try another PDF."
+        );
+    }
+}
+
+</script>
+
+</body>
+</html>
